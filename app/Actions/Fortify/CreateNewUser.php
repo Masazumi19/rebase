@@ -27,7 +27,7 @@ class CreateNewUser implements CreatesNewUsers
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
-            'masa_name' => ['string', 'max:255', 'unique:companies,name'],
+            'masa_name' => ['string', 'max:255', 'unique:products,product_name'],//その中に被るデータがないかどうか
         ])->validate();
 
         DB::beginTransaction();

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', [ProductController::class, 'index'])
+    ->middleware('auth')
+    ->name('root');
+
+Route::get('/welcome', function () {
     return view('welcome');
-})->name('welcome');
+})->middleware('guest')
+    ->name('welcome');
 
 Route::middleware([
     'auth:sanctum',
@@ -31,3 +37,12 @@ Route::get('masa/register', function () {
     return view('masa.register');
 })->middleware('guest')
     ->name('masa.register');
+
+
+Route::resource('products', ProductController::class)
+    ->only(['create', 'store', 'edit', 'update', 'destroy'])
+    ->middleware('can:masa');
+
+Route::resource('products', ProductController::class)
+    ->only(['show', 'index'])
+    ->middleware('auth');

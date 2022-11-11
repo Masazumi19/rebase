@@ -15,8 +15,8 @@ class MasaFactory extends Factory
     public function definition()
     {
         return [
-                        'user_id' => User::factory(),
-            'name' => $this->faker->unique()->masa,
+            'user_id' => User::factory(),
+            'name' => $this->faker->unique()->name,
             'profile' => $this->faker->realText,
         ];
     }

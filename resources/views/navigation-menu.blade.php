@@ -47,6 +47,12 @@
                                 {{ __('Manage Account') }}
                             </div>
 
+                            @can ('create', App\Models\Product::class)
+                    <x-jet-dropdown-link href="{{ route('products.create') }}">
+                        {{ '商品登録' }}
+                    </x-jet-dropdown-link>
+                @endcan
+
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
@@ -109,6 +115,12 @@
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
                 </x-jet-responsive-nav-link>
+
+                                        @can ('create', App\Models\Product::class)
+                                <x-jet-dropdown-link href="{{ route('products.create') }}">
+                                    {{ '商品登録' }}
+                                </x-jet-dropdown-link>
+                            @endcan
 
 
                 <!-- Authentication -->
