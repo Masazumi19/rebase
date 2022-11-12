@@ -11,14 +11,14 @@
                 <ul>
                     <li class="mb-2">
                         <a href="/"
-                            class="hover:text-blue-500 {{ Request::get('occupation_id') ?: 'text-green-500 font-bold' }}">
+                            class="hover:text-blue-500 {{ Request::get('category_id') ?: 'text-green-500 font-bold' }}">
                             全て
                         </a>
                     </li>
                     @foreach ($categories as $o)
                         <li class="mb-2">
-                            <a href="/?occupation_id={{ $o->id }}"
-                                class="hover:text-blue-500 {{ Request::get('occupation_id') == $o->id ? 'text-green-500 font-bold' : '' }}">
+                            <a href="/?category_id={{ $o->id }}"
+                                class="hover:text-blue-500 {{ Request::get('category_id') == $o->id ? 'text-green-500 font-bold' : '' }}">
                                 {{ $o->name }}
                             </a>
                         </li>
@@ -33,10 +33,7 @@
                                 <div class="border border-gray-900 px-2 h-7 leading-7 rounded-full">
                                     {{ $j->category->name }}
                                 </div>
-                                <div class="text-gray-700 text-sm text-right">
-                                    <span>応募期限 :{{ $j->due_date }}</span>
-                                    <span class="inline-block mx-1">|</span>
-                                </div>
+                                
                             </div>
                             <h2 class="text-lg text-gray-700 font-semibold">{{ $j->title }}
                             </h2>

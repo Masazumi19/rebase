@@ -21,16 +21,13 @@ class Product extends Model
         'product_name',
         'category_id',
         'price',
-        'due_date',
         'description',
-        'is_published',
+        'image'
+        
     ];
-    public function scopePublished(Builder $query)
-    {
-        $query->where('is_published', true)
-            ->where('due_date', '>=', now());
-        return $query;
-    }
+    // public function scopePublished(Builder $query)
+    // {
+    // }
 
     public function scopeSearch(Builder $query, $params)
     {
@@ -60,5 +57,10 @@ class Product extends Model
         public function messages()
     {
         return $this->morphMany(Message::class, 'messageable');
+    }
+
+    public function getImagePathAttribute()
+    {
+        return 'images/products/' . $this->image;
     }
 }

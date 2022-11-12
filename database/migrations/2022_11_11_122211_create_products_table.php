@@ -24,10 +24,9 @@ class CreateProductsTable extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->string('product_name');
+            $table->string('image');
             $table->text('description');
-            $table->integer('price')->nullable();
-            $table->date('due_date');
-            $table->boolean('is_published')->default(1);
+            $table->integer('price');
             $table->timestamps();
         });
     }

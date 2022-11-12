@@ -28,29 +28,12 @@
                 </select>
             </div>
             <div class="mb-4">
-                <label class="block text-white mb-2" for="due_date">
-                    募集期限
-                </label>
-                <input type="date" name="due_date"
-                    class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3"
-                    required placeholder="募集期限" value="{{ old('due_date', $product->due_date) }}">
-            </div>
-            <div class="mb-4">
                 <label class="block text-white mb-2" for="description">
                     詳細
                 </label>
                 <textarea name="description" rows="10"
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3"
                     required placeholder="詳細">{{ old('description', $product->description) }}</textarea>
-            </div>
-            <div class="mb-4">
-                <label class="block text-white mb-2" for="description">
-                    公開状況
-                </label>
-                @foreach (App\Models\Product::STATUS_LIST as $value => $name)
-                    <input type="radio" name="is_published" value="{{ $value }}" @if ($value == old('is_published', $product->is_published)) checked="checked" @endif required>
-                    <label class="text-white mr-2">{{ $name }}</label>
-                @endforeach
             </div>
             <input type="submit" value="更新"
                 class="w-full flex justify-center bg-gradient-to-r from-pink-500 to-purple-600 hover:bg-gradient-to-l hover:from-purple-500 hover:to-pink-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500">

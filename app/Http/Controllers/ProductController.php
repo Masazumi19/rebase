@@ -7,6 +7,9 @@ use App\Models\Category;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 use App\Models\Message;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -18,7 +21,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $params = $request->query();
-        $products = Product::search($params)->published()
+        $products = Product::search($params)//->published()
             ->with(['masa', 'category'])->latest()->paginate(5);
 
         $products->appends($params);
@@ -48,6 +51,12 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $product = new Product($request->all());
+        $file = $request->file('image');
+        // dd($product);
+        // dd($file);
+        $product->image = self::createFileName($file);
+        $product->masa_id = Auth::user()->masa->id;
+
         
         try {
             // 登録
@@ -134,5 +143,11 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')
             ->with('notice', '求人情報を削除しました');
+    }
+
+    private static function createFileName($file)
+    {
+    // dd($file);
+        return date('YmdHis') . '_' . $file->getClientOriginalName();
     }
 }

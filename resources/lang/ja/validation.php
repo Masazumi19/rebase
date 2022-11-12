@@ -136,10 +136,12 @@ return [
     'attributes'           => [
         'title' => 'タイトル',
         'category_id' => 'カテゴリー',
-        'due_date' => '募集期限',
         'description' => '詳細',
         'status' => 'ステータス',
         'body' => 'コメント',
+        'image' => '画像',
+        'price' => '価格',
+        
     ],
 
     'values' => [

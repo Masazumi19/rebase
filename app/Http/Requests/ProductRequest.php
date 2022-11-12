@@ -27,12 +27,14 @@ class ProductRequest extends FormRequest
 
         $rule = [
             'product_name' => 'required|string|max:50',
-            'category_id' => 'required|exists:occupations,id',
-            'due_date' => 'required|after_or_equal:today',
+            'category_id' => 'required|exists:categories,id',
             'description' => 'required|string|max:2000',
-            'is_published' => 'nullable|boolean',
+            'price' => 'numeric'
         ];
 
+        // if ($route === 'product.store' || $this->file('image')) {
+        //     $rule['image'] = 'required|file|image|mimes:jpg,png';
+        // }
         if ($route === 'product.update') {
             $rule['due_date'] = 'required|date';
         }
