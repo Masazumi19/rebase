@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
+use App\Models\Message;
 
 class ProductController extends Controller
 {
@@ -16,7 +17,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-                        $params = $request->query();
+        $params = $request->query();
         $products = Product::search($params)->published()
             ->with(['masa', 'category'])->latest()->paginate(5);
 
@@ -35,7 +36,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-            return view('products.create', compact('categories'));
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -46,16 +47,15 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-                $product = new Product($request->all());
-        $product->masa_id = $request->user()->masa->id;
-
+        $product = new Product($request->all());
+        
         try {
             // 登録
             $product->save();
         } catch (\Exception $e) {
             return back()->withInput()
                 ->withErrors($e->getMessage());
-                // ->withErrors('求人情報登録処理でエラーが発生しました');
+            // ->withErrors('求人情報登録処理でエラーが発生しました');
         }
 
         return redirect()
@@ -71,7 +71,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show', compact('product'));
+        $messages = $product->messages->load('user');
+        return view('products.show', compact('product', 'messages'));
+        
     }
 
     /**
@@ -95,7 +97,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-                if (Auth::user()->cannot('update', $product)) {
+        if (Auth::user()->cannot('update', $product)) {
             return redirect()->route('products.show', $product)
                 ->withErrors('自分の求人情報以外は更新できません');
         }
@@ -118,6 +120,19 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if (Auth::user()->cannot('delete', $product)) {
+            return redirect()->route('products.show', $product)
+                ->withErrors('自分の求人情報以外は削除できません');
+        }
+
+        try {
+            $product->delete();
+        } catch (\Exception $e) {
+            return back()->withInput()
+                ->withErrors('求人情報削除処理でエラーが発生しました');
+        }
+
+        return redirect()->route('products.index')
+            ->with('notice', '求人情報を削除しました');
     }
 }

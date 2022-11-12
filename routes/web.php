@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,8 @@ Route::resource('products', ProductController::class)
 
 Route::resource('products', ProductController::class)
     ->only(['show', 'index'])
+    ->middleware('auth');
+
+Route::resource('products.messages', MessageController::class)
+    ->only(['store', 'destroy'])
     ->middleware('auth');

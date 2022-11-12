@@ -139,6 +139,7 @@ return [
         'due_date' => '募集期限',
         'description' => '詳細',
         'status' => 'ステータス',
+        'body' => 'コメント',
     ],
 
     'values' => [

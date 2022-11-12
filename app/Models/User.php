@@ -65,4 +65,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(\App\Models\Masa::class);
     }
+
+    public function messages()
+    {
+        return $this->morphMany(Message::class, 'messageable');
+    }
+
 }

@@ -28,7 +28,7 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return isset($user->company);
+        return isset($user->masa);
     }
 
     /**
