@@ -1,25 +1,21 @@
 <x-app-layout>
     <div class="container mx-auto w-3/5 my-8 px-4 py-4">
         <div class="flex justify-end items-center mb-3">
-            <h4 class="text-gray-400 text-sm">並び替え</h4>
             <ul class="flex">
             </ul>
         </div>
-    <div id="navArea">
-    <nav>
-    <div class="inner">
-    {{-- <ul> --}}
+        <div id="navArea">{{-- 最初 --}}
+        <nav>
+        <div class="inner">{{-- div1 --}}
         <div class="flex justify-between">
             <div class="w-2/5">
-        {{-- <li> --}}<h3 class="mb-3 text-gray-400 text-sm">検索条件</h3>{{-- <li> --}}
+                <h3 class="mb-3 text-gray-400 text-sm">検索条件</h3>
                 <ul>
-                    {{-- <li> --}}<li class="mb-2">
+                    <li class="mb-2">
                         <a href="/"
                             class="hover:text-blue-500 {{ Request::get('category_id') ?: 'text-green-500 font-bold' }}">
                             全て
                         </a>
-                    {{-- <li> --}}
-                    {{-- <li> --}}
                     </li>
                     @foreach ($categories as $o)
                         <li class="mb-2">
@@ -30,8 +26,23 @@
                         </li>
                     @endforeach
                 </ul>
+                </div>{{-- div1 --}}
+            </nav>
+
+        <div class="toggle-btn">{{-- div2 --}}
+        <span></span>
+        <span></span>
+        <span></span>
+        </div>{{-- div2 --}}
+        
+        <!-- 黒の背景色の追加 -->
+        <div id="mask"></div>
+    </div>{{-- 最後 --}}
             </div>
-    </div>
+
+                <script src="js/script.js"></script>
+
+
             <div class="w-full">
                 @foreach ($products as $j)
                     <div class="bg-white w-full px-10 py-8 hover:shadow-2xl transition duration-500">
@@ -40,7 +51,7 @@
                                 <div class="border border-gray-900 px-2 h-7 leading-7 rounded-full">
                                     {{ $j->category->name }}
                                 </div>
-                                
+
                             </div>
                             <h2 class="text-lg text-gray-700 font-semibold">{{ $j->product_name }}
                             </h2>
@@ -64,7 +75,7 @@
                                     </div>
                                     <div class="text-sm font-semibold">
                                         {{-- {{ $j->masa->name }} --}}
-                                        
+
                                     </div>
                                 </div>
                                 <div>

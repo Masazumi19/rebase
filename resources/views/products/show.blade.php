@@ -5,6 +5,9 @@
         <x-validation-errors :errors="$errors" />
 
         <article class="mb-2">
+           <form action=""><input type="submit" value="purchase" onclick="if(!confirm('購入しますか？')){return false};"
+                        class="bg-gradient-to-r from-pink-500 to-purple-600 hover:bg-gradient-to-l hover:from-purple-500 hover:to-pink-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
+            </form>
             <div class="flex justify-between text-sm">
                 <div class="flex item-center">
                     <div class="border border-gray-900 px-2 h-7 leading-7 rounded-full">
