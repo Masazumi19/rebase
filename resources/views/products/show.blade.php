@@ -10,23 +10,24 @@
                     <div class="border border-gray-900 px-2 h-7 leading-7 rounded-full">
                         {{ $product->category->name }}</div>
                 </div>
-                <div>
-                    <span>on {{ $product->created_at->format('Y-m-d') }}</span>
-                    <span class="inline-block mx-1">|</span>
-                    <span>0 views</span>
-                </div>
             </div>
-            <p class="text-gray-700 text-base text-right">応募期限 :{{ $product->due_date }}</p>
             <h2 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-1 text-3xl md:text-4xl">
-                {{ $product->title }}</h2>
-            <div class="flex mt-1 mb-3">
+                {{ $product->product_name }}</h2>
+            <img class="w-half mb-2" src="{{ $product->image_url }}" alt="">
+
+            {{-- <div class="flex mt-1 mb-3">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                     <div><img src="{{ $product->masa->profile_photo_url }}" alt=""
                             class="h-10 w-10 rounded-full object-cover mr-3"></div>
                 @endif
                 <h3 class="text-lg h-10 leading-10">{{ $product->masa->name }}</h3>
-            </div>
+            </div> --}}
             <p class="text-gray-700 text-base">{!! nl2br(e($product->description)) !!}</p>
+            <br>
+            <div class="text-sm font-semibold">
+                ${{ $product->price }}
+                <span class="font-normal ml-2"></span>
+            </div>
         </article>
         <div class="flex flex-col sm:flex-row items-center sm:justify-end text-center my-4">
             @can('update', $product)
@@ -150,8 +151,7 @@
                             </path>
                         </svg>
                     </button>
-                    <form method="post" action="{{ route('products.messages.store', $product) }}"
-                        id="sendMessage">
+                    <form method="post" action="{{ route('products.messages.store', $product) }}" id="sendMessage">
                         @csrf
                     </form>
                 </div>

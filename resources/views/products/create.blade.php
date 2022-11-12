@@ -12,7 +12,7 @@
                 </label>
                 <input type="text" name="product_name"
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3"
-                    required placeholder="タイトル" value="{{ old('title') }}">
+                    required placeholder="タイトル" value="{{ old('product_name') }}">
             </div>
             <div class="mb-4">
                 <label class="block text-white mb-2" for="categories_id">

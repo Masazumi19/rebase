@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -23,7 +24,7 @@ class Product extends Model
         'price',
         'description',
         'image'
-        
+
     ];
     // public function scopePublished(Builder $query)
     // {
@@ -49,14 +50,19 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-        public function comments()
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-        public function messages()
+    public function messages()
     {
         return $this->morphMany(Message::class, 'messageable');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return Storage::url($this->image_path);
     }
 
     public function getImagePathAttribute()

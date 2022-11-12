@@ -15,6 +15,7 @@ class Masa extends Model
         'user_id',
         'name',
         'profile'
+        
     ];
 
     /**

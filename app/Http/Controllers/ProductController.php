@@ -57,6 +57,12 @@ class ProductController extends Controller
         $product->image = self::createFileName($file);
         $product->masa_id = Auth::user()->masa->id;
 
+                    // 画像アップロード
+            if (!Storage::putFileAs('images/products', $file, $product->image)) {
+                // 例外を投げてロールバックさせる
+                throw new \Exception('画像ファイルの保存に失敗しました。');
+            }
+
         
         try {
             // 登録
