@@ -15,8 +15,7 @@ use App\Http\Controllers\MessageController;
 |
 */
 
-Route::get('/', [ProductController::class, 'index'])
-    ->middleware('auth')
+Route::get('/', [ProductController::class, 'index'])//スラッシュがあったらインデックスに行くよ
     ->name('root');
 
 Route::get('/welcome', function () {
@@ -45,9 +44,27 @@ Route::resource('products', ProductController::class)
     ->middleware('can:masa');
 
 Route::resource('products', ProductController::class)
+    ->only(['index']);
+    
+    
+Route::resource('products', ProductController::class)
     ->only(['show', 'index'])
     ->middleware('auth');
 
 Route::resource('products.messages', MessageController::class)
     ->only(['store', 'destroy'])
     ->middleware('auth');
+
+// Route::resource('products.register', ProductController::class)
+//     ->only(['update'])
+//     ->middleware('can:user');
+
+Route::patch('products/{product}/register', [ProductController::class, 'approval'])
+    ->name('products.register.approval')
+    ->middleware('can:user');
+
+// Route::get('products/{product}/register', [ProductController::class, 'approval'])
+//     ->name('products.register.approval')
+//     ->middleware('can:user');
+
+

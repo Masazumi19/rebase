@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Error\Notice;
 
 class ProductController extends Controller
 {
@@ -87,8 +89,13 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $messages = $product->messages->load('user');
+        $product->status = Product::STATUS_DISPLAY;
+        $product->save();
         return view('products.show', compact('product', 'messages'));
         
+
+        // return redirect()->route('job_offers.show', $job_offer)
+        //     ->with('notice', '');
     }
 
     /**
@@ -149,6 +156,23 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')
             ->with('notice', '求人情報を削除しました');
+    }
+
+    public function approval(Product $product)
+    {
+    // dd($product);
+    $messages = $product->messages->load('user');
+    // dd($product);
+    $product->status = Product::STATUS_PURCHASED;
+        $product->save();
+        Session::flash('notice', '購入ありがとうございました');
+    // dd($product);
+
+        return view('products.show', compact('product', 'messages'))
+            ->with('notice', '購入ありがとうございました');
+        
+        // return redirect()->route('products.show', $product)
+        //     ->with('notice', '購入ありがとうございました');
     }
 
     private static function createFileName($file)

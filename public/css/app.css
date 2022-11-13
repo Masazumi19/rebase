@@ -1248,9 +1248,9 @@ select {
 .h-px {
   height: 1px;
 }
-.min-h-screen {
+/* .min-h-screen {
   min-height: 100vh;
-}
+} */
 .w-5 {
   width: 1.25rem;
 }
@@ -1298,9 +1298,6 @@ select {
 }
 .w-3\/5 {
   width: 60%;
-}
-.w-2\/5 {
-  width: 40%;
 }
 .w-11\/12 {
   width: 91.666667%;
@@ -1899,11 +1896,11 @@ select {
 .font-semibold {
   font-weight: 600;
 }
-.font-bold {
-  font-weight: 700;
-}
 .font-normal {
   font-weight: 400;
+}
+.font-bold {
+  font-weight: 700;
 }
 .uppercase {
   text-transform: uppercase;
@@ -2706,4 +2703,5 @@ select {
     line-height: 1;
   }
 }
+
 
