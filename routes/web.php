@@ -48,8 +48,8 @@ Route::resource('products', ProductController::class)
     
     
 Route::resource('products', ProductController::class)
-    ->only(['show', 'index'])
-    ->middleware('auth');
+    ->only(['show']);
+    
 
 Route::resource('products.messages', MessageController::class)
     ->only(['store', 'destroy'])
@@ -66,5 +66,6 @@ Route::patch('products/{product}/register', [ProductController::class, 'approval
 // Route::get('products/{product}/register', [ProductController::class, 'approval'])
 //     ->name('products.register.approval')
 //     ->middleware('can:user');
+
 
 

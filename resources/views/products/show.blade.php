@@ -22,7 +22,7 @@
                         <form action="" method="POST">
                         @csrf
                         @method('PATCH')
-                            <input type="submit" value="購入" formaction="{{ route('products.register.approval', $product) }}" method="PATCH" onclick="if(!confirm('購入しますか？')){return false};" class="bg-gradient-to-r  from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
+                            <input type="submit" value="Purchase" formaction="{{ route('products.register.approval', $product) }}" method="PATCH" onclick="if(!confirm('Are you sure you want to purchase this stuff?')){return false};" class="bg-gradient-to-r  from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
                         </form>
                         @else
                             <form action=""><input type="button" value="SOLD" class="bg-gradient-to-r bg-red-600 to-blue-600 hover:bg-gradient-to-l  text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
@@ -70,6 +70,7 @@
                         class="bg-gradient-to-r from-pink-500 to-purple-600 hover:bg-gradient-to-l hover:from-purple-500 hover:to-pink-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
                 </form>
             @endcan
+        <a class="bg-gradient-to-r bg-gray-800 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0" href="{{ route('products.index') }}">back to index</a>
         </div>
         <hr>
         <div id="messages"
@@ -137,7 +138,7 @@
                 </span>
                 <input type="hidden" id="messageable_id" name="messageable_id" value="{{ $product->id }}"
                     form="sendMessage">
-                <input type="text" placeholder="メッセージを入力" name="message" form="sendMessage"
+                <input type="text" placeholder="Enter the message" name="message" form="sendMessage"
                     class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3">
                 <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
                     <button type="button"
@@ -171,7 +172,7 @@
                     </button>
                     <button type="submit" id="submit" form="sendMessage"
                         class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
-                        <span class="font-bold">送信</span>
+                        <span class="font-bold">Send</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                             class="h-6 w-6 ml-2 transform rotate-90">
                             <path

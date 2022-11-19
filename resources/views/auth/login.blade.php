@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         
-        <h2 class="text-center font-medium text-gray-700 mb-4">ログイン</h2>
+        <h2 class="text-center font-medium text-gray-700 mb-4">Sign in</h2>
 
         <x-jet-validation-errors class="mb-4" />
 
@@ -39,7 +39,7 @@
                 @endif
 
                 <x-jet-button class="ml-4">
-                    {{ __('Log in') }}
+                    {{ __('Sign in') }}
                 </x-jet-button>
             </div>
         </form>

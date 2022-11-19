@@ -180,4 +180,6 @@ class ProductController extends Controller
     // dd($file);
         return date('YmdHis') . '_' . $file->getClientOriginalName();
     }
+
+    
 }

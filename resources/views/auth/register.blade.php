@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        <h2 class="text-center font-medium text-gray-700 mb-4">ユーザーアカウント登録</h2>
+        <h2 class="text-center font-medium text-gray-700 mb-4">Create an Account</h2>
 
         <x-jet-validation-errors class="mb-4" />
 
