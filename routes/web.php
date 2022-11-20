@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MessageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,57 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', [ProductController::class, 'index'])//スラッシュがあったらインデックスに行くよ
+    ->name('root');
+
+Route::get('/welcome', function () {
     return view('welcome');
+})->middleware('guest')
+    ->name('welcome');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });
+
+Route::get('masa/register', function () {
+    return view('masa.register');
+})->middleware('guest')
+    ->name('masa.register');
+
+
+Route::resource('products', ProductController::class)
+    ->only(['create', 'store', 'edit', 'update', 'destroy'])
+    ->middleware('can:masa');
+
+Route::resource('products', ProductController::class)
+    ->only(['index']);
+    
+    
+Route::resource('products', ProductController::class)
+    ->only(['show']);
+    
+
+Route::resource('products.messages', MessageController::class)
+    ->only(['store', 'destroy'])
+    ->middleware('auth');
+
+// Route::resource('products.register', ProductController::class)
+//     ->only(['update'])
+//     ->middleware('can:user');
+
+Route::patch('products/{product}/register', [ProductController::class, 'approval'])
+    ->name('products.register.approval')
+    ->middleware('can:user');
+
+// Route::get('products/{product}/register', [ProductController::class, 'approval'])
+//     ->name('products.register.approval')
+//     ->middleware('can:user');
+
+
+

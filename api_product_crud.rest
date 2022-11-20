@@ -1,0 +1,82 @@
+@host = localhost
+
+### index
+GET /api/products HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+
+
+
+### show
+# @prompt product_id
+GET /api/products/{{ product_id }}?perPage=20&page=1 HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+
+
+
+### store
+# @prompt file
+POST /api/products HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+Content-Type: multipart/form-data; boundary=----storeForm
+# boundatyは送信するデータの目印
+
+------storeForm
+Content-Disposition: form-data; name="product_name"
+
+Test タイトル
+------storeForm
+Content-Disposition: form-data; name="description"
+
+Test 本文
+------storeForm
+Content-Disposition: form-data; name="price"
+
+100
+------storeForm
+Content-Disposition: form-data; name="category_id"
+
+1
+------storeForm
+Content-Disposition: form-data; name="image"; filename="file.jpg"
+< {{ file }}
+------storeForm--
+
+
+
+### update
+# @prompt file
+POST /api/products/1 HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+Content-Type: multipart/form-data; boundary=----updateForm
+# boundatyは送信するデータの目印
+
+------updateForm
+Content-Disposition: form-data; name="_method"
+
+PATCH
+------updateForm
+Content-Disposition: form-data; name="title"
+
+Test タイトル
+------updateForm
+Content-Disposition: form-data; name="body"
+
+Test 本文
+------updateForm
+Content-Disposition: form-data; name="image"; filename="file.jpg"
+
+< {{ file }}
+------updateForm--
+
+
+
+### destroy
+# @prompt product_id
+DELETE /api/products/{{ product_id }} HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+

@@ -1,0 +1,1 @@
+http://localhost/products/1/register
