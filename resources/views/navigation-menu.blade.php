@@ -9,16 +9,22 @@
                         <a href="/">
                             <x-jet-application-mark class="block h-9 w-auto" />
                         </a>
+                        <div class="">
+                        Rebase
+                        </div>
                     </div>
                 </div>
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex font-bold">
                     <x-jet-dropdown-link href="{{ route('login') }}">
                         {{ 'Sign up' }}
                     </x-jet-dropdown-link>
+                    <div class="text-2xl">
                     <x-jet-dropdown-link href="{{ route('register') }}">
                         {{ 'Create an Account' }}
                     </x-jet-dropdown-link>
+                    </div>
                     {{-- <ul class="ddmenu"> --}}
                     <x-jet-dropdown align="right" width="48">
                         <div class="ml-3">

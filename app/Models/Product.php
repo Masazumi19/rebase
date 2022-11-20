@@ -30,6 +30,16 @@ class Product extends Model
     // {
     // }
 
+        protected $appends = [
+        'image_url',
+    ];
+
+    protected $hidden = [
+        'image',
+        'updated_at',
+    ];
+
+
     public function scopeSearch(Builder $query, $params)
     {
         if (!empty($params['category_id'])) {
@@ -52,7 +62,7 @@ class Product extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->latest();
     }
 
     public function messages()
@@ -69,4 +79,6 @@ class Product extends Model
     {
         return 'images/products/' . $this->image;
     }
+
+
 }

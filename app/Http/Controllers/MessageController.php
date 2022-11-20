@@ -36,7 +36,7 @@ class MessageController extends Controller
 
         return redirect()
             ->route('products.show', $product)
-            ->with('notice', 'メッセージを登録しました');
+            ->with('notice', 'Post your message');
     }
 
     /**

@@ -24,7 +24,7 @@
                         @method('PATCH')
                             <input type="submit" value="Purchase" formaction="{{ route('products.register.approval', $product) }}" method="PATCH" onclick="if(!confirm('Are you sure you want to purchase this stuff?')){return false};" class="bg-gradient-to-r  from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
                         </form>
-                        @else
+                    @else
                             <form action=""><input type="button" value="SOLD" class="bg-gradient-to-r bg-red-600 to-blue-600 hover:bg-gradient-to-l  text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
                             </form>
                         
@@ -76,34 +76,51 @@
         <div id="messages"
             class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             @foreach ($messages as $message)
-                @if ($message->user_id == Auth::user()->id)
-                    <div class="chat-message">
-                        <div class="flex items-end justify-end">
-                            <form action="{{ route('products.messages.destroy', [$product, $message]) }}" method="post"
-                                id="destroyMessage">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-                            <button form="destroyMessage" onclick="if(!confirm('メッセージを削除しますか？')){return false};">
-                                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                    </path>
-                                </svg>
-                            </button>
-                            <div class="text-gray-600 text-sm">
-                                {{ \Carbon\Carbon::parse($message->created_at)->format('H:i') }}</div>
-                            <div class="flex flex-col space-y-2 text-lg max-w-lg mx-2 items-end">
-                                <div>
-                                    <span
-                                        class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white">{{ $message->message }}</span>
+                @auth
+                    @if ($message->user_id == Auth::user()->id)
+                        <div class="chat-message">
+                            <div class="flex items-end justify-end">
+                                <form action="{{ route('products.messages.destroy', [$product, $message]) }}" method="post"
+                                    id="destroyMessage">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                                <button form="destroyMessage" onclick="if(!confirm('メッセージを削除しますか？')){return false};">
+                                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                        </path>
+                                    </svg>
+                                </button>
+                                <div class="text-gray-600 text-sm">
+                                    {{ \Carbon\Carbon::parse($message->created_at)->format('H:i') }}</div>
+                                <div class="flex flex-col space-y-2 text-lg max-w-lg mx-2 items-end">
+                                    <div>
+                                        <span
+                                            class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white">{{ $message->message }}</span>
+                                    </div>
                                 </div>
+                                <img class="w-6 h-6 rounded-full" src="{{ $message->user->profile_photo_url }}"
+                                    alt="{{ $message->user->name }}" />
                             </div>
-                            <img class="w-6 h-6 rounded-full" src="{{ $message->user->profile_photo_url }}"
-                                alt="{{ $message->user->name }}" />
                         </div>
-                    </div>
+                    @else
+                        <div class="chat-message">
+                            <div class="flex items-end">
+                                <img class="w-6 h-6 rounded-full " src="{{ $message->user->profile_photo_url }}"
+                                    alt="{{ $message->user->name }}" />
+                                <div class="flex flex-col space-y-2 text-lg max-w-lg mx-2 items-start">
+                                    <div>
+                                        <span
+                                            class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">{{ $message->message }}</span>
+                                    </div>
+                                </div>
+                                <div class="text-gray-600 text-sm">
+                                    {{ \Carbon\Carbon::parse($message->created_at)->format('H:i') }}</div>
+                            </div>
+                        </div>
+                    @endif
                 @else
                     <div class="chat-message">
                         <div class="flex items-end">
@@ -123,7 +140,7 @@
             @endforeach
         </div>
         <div
-            class="border-t-2 border-gray-200 pt-4 mb-2 sm:mb-0 sticky bottom-0 lg:w-3/4 md:w-4/5 w-11/12 mx-auto my-8 px-4 py-4 bg-white">
+            class="border-t-2 border-gray-200 pt-4 mb-2 sm:mb-0 bottom-0 lg:w-3/4 md:w-4/5 w-11/12 mx-auto my-8 px-4 py-4 bg-white">
             <div class="relative flex">
                 <span class="absolute inset-y-0 flex items-center">
                     <button type="button"

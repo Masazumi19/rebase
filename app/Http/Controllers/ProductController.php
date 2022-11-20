@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         $params = $request->query();
         $products = Product::search($params)//->published()
-            ->with(['masa', 'category'])->latest()->paginate(5);
+            ->with(['masa', 'category'])->latest()->paginate(6);
 
         $products->appends($params);
 
@@ -89,7 +89,8 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $messages = $product->messages->load('user');
-        $product->status = Product::STATUS_DISPLAY;
+    // dd($product, $messages);
+        // $product->status = Product::STATUS_DISPLAY;
         $product->save();
         return view('products.show', compact('product', 'messages'));
         
@@ -160,16 +161,16 @@ class ProductController extends Controller
 
     public function approval(Product $product)
     {
-    // dd($product);
-    $messages = $product->messages->load('user');
-    // dd($product);
-    $product->status = Product::STATUS_PURCHASED;
+        // dd($product);
+        $messages = $product->messages->load('user');
+        // dd($product);
+        $product->status = Product::STATUS_PURCHASED;
         $product->save();
-        Session::flash('notice', '購入ありがとうございました');
-    // dd($product);
+        Session::flash('notice', 'Thank you for your purchasing!');
+        // dd($product);
 
         return view('products.show', compact('product', 'messages'))
-            ->with('notice', '購入ありがとうございました');
+            ->with('notice', 'Thank you for your purchasing');
         
         // return redirect()->route('products.show', $product)
         //     ->with('notice', '購入ありがとうございました');

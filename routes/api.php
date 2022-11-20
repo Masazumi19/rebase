@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('products', ProductController::class)
+    ->middleware('auth:api')
+    ->names('api.products');
+
+Route::apiResource('products.messages', MessageController::class)
+    ->middleware('auth:api')
+    ->only(['store', 'show', 'update', 'destroy'])
+    ->names('api.products.messages');
